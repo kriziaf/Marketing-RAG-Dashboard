@@ -1,0 +1,287 @@
+/* ============================================================
+   UI Shell Style Kit
+   Extracted from Draft Room v1.3. This is the app-chrome visual
+   language — page background, typography, cards, toolbar pills,
+   buttons, step indicator — independent of any specific product's
+   design tokens. Drop this in alongside your own content/component
+   styles; nothing here assumes a particular brand.
+   ============================================================ */
+
+/* ---- Fonts (Google Fonts) ----
+   Add to <head>:
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+*/
+
+/* ---- Design tokens ----
+   Everything below reads from these. Change values here to retheme. */
+:root {
+  --shell-font-heading: 'Montserrat', sans-serif;
+  --shell-font-body: 'Inter', sans-serif;
+
+  --shell-bg: #F7F7F5;           /* page background, off-white */
+  --shell-surface: #ffffff;      /* card / container background */
+  --shell-border: #E3E3E1;       /* card and input borders */
+  --shell-border-strong: #D5D5D5;/* input borders, slightly darker */
+
+  --shell-ink: #1a1a1a;          /* primary text */
+  --shell-ink-subtle: #6C6C6C;   /* secondary text, hints */
+  --shell-ink-faint: #9a9a95;    /* placeholders, disabled */
+
+  --shell-accent: #035C67;       /* primary teal — buttons, links, active states */
+  --shell-accent-hover: #024A52;
+  --shell-accent-wash: #EAF4F6;  /* light tint for hover/active backgrounds */
+  --shell-accent-wash-strong: #DCEDEF;
+
+  --shell-radius-sm: 6px;
+  --shell-radius-md: 8px;
+  --shell-radius-lg: 12px;
+
+  --shell-shadow-card: 0 1px 2px rgba(0,0,0,0.08);
+  --shell-shadow-sidesheet: -8px 0 24px rgba(0,0,0,0.12);
+}
+
+/* ---- Page shell ---- */
+body.shell {
+  margin: 0;
+  font-family: var(--shell-font-body);
+  color: var(--shell-ink);
+  background: var(--shell-bg);
+}
+
+.shell-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 5rem;
+}
+
+/* ---- Heading block (eyebrow + title) ---- */
+.shell-eyebrow {
+  font-family: var(--shell-font-heading);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--shell-accent);
+  margin: 0 0 0.5rem;
+}
+.shell-title {
+  font-family: var(--shell-font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0 0 2rem;
+  color: var(--shell-ink);
+}
+
+/* ---- Card container ----
+   The base "white box" used everywhere: forms, panels, previews. */
+.shell-card {
+  background: var(--shell-surface);
+  border: 1px solid var(--shell-border);
+  border-radius: var(--shell-radius-lg);
+  padding: 2rem;
+}
+
+/* ---- Toolbar ----
+   A horizontal bar of pill-button groups — e.g. breakpoint /
+   brand-mode switchers, filter controls, view toggles. */
+.shell-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  padding: 1rem 1.5rem;
+  background: var(--shell-surface);
+  border: 1px solid var(--shell-border);
+  border-radius: var(--shell-radius-lg);
+  margin-bottom: 1.25rem;
+}
+.shell-toolbar__group { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; }
+.shell-toolbar__label {
+  font-family: var(--shell-font-heading);
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--shell-ink-subtle);
+}
+.shell-toolbar__pill {
+  font-family: var(--shell-font-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.4rem 0.7rem;
+  border-radius: var(--shell-radius-sm);
+  border: 1px solid var(--shell-border-strong);
+  background: var(--shell-surface);
+  color: #4a4a4a;
+  cursor: pointer;
+}
+.shell-toolbar__pill.is-active { background: var(--shell-accent); color: #fff; border-color: var(--shell-accent); }
+.shell-toolbar__pill:hover:not(.is-active) { background: #F2F2F0; }
+.shell-toolbar__spacer { flex: 1; }
+
+/* ---- Step indicator ----
+   A row of numbered pills showing progress through a flow. */
+.shell-steps {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+  font-family: var(--shell-font-heading);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+.shell-steps__item {
+  flex: 1;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--shell-radius-sm);
+  background: #EDEDEA;
+  color: #8a8a85;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  font: inherit;
+  cursor: default;
+  text-align: left;
+  transition: background 0.2s, color 0.2s;
+}
+.shell-steps__item.is-active { background: var(--shell-accent); color: #fff; }
+.shell-steps__item.is-done { background: var(--shell-accent-wash-strong); color: var(--shell-accent); cursor: pointer; }
+.shell-steps__item.is-done:hover { background: #CCE7EA; }
+.shell-steps__num {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 1.5px solid currentColor;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; flex-shrink: 0;
+}
+
+/* ---- Buttons ---- */
+.shell-btn-primary {
+  font-family: var(--shell-font-heading);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.5rem;
+  background: var(--shell-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--shell-radius-md);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.shell-btn-primary:hover { background: var(--shell-accent-hover); }
+.shell-btn-primary:disabled { background: #ABABAB; cursor: default; }
+
+.shell-btn-outline {
+  font-family: var(--shell-font-heading);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  background: var(--shell-surface);
+  color: var(--shell-accent);
+  border: 1.5px solid var(--shell-accent);
+  border-radius: var(--shell-radius-md);
+  cursor: pointer;
+}
+.shell-btn-outline:hover { background: var(--shell-accent-wash); }
+
+.shell-btn-text {
+  font-family: var(--shell-font-heading);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #4a4a4a;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.shell-btn-text:hover { color: var(--shell-accent); }
+
+/* ---- Inputs ---- */
+.shell-input,
+.shell-textarea {
+  width: 100%;
+  font-family: var(--shell-font-body);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid var(--shell-border-strong);
+  border-radius: var(--shell-radius-md);
+  color: var(--shell-ink);
+}
+.shell-textarea { resize: vertical; }
+.shell-input:focus,
+.shell-textarea:focus { outline: 2px solid var(--shell-accent); outline-offset: 1px; }
+.shell-input::placeholder,
+.shell-textarea::placeholder { color: var(--shell-ink-faint); }
+
+/* ---- Sidesheet ----
+   A slide-in panel from the right, with a dimmed overlay. */
+.shell-sidesheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 20, 18, 0.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 40;
+}
+.shell-sidesheet-overlay.is-open { opacity: 1; pointer-events: auto; }
+
+.shell-sidesheet {
+  position: fixed;
+  top: 0; right: 0; bottom: 0;
+  width: min(420px, 92vw);
+  background: var(--shell-surface);
+  box-shadow: var(--shell-shadow-sidesheet);
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+}
+.shell-sidesheet.is-open { transform: translateX(0); }
+.shell-sidesheet__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--shell-border);
+}
+.shell-sidesheet__title {
+  font-family: var(--shell-font-heading);
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin: 0;
+}
+.shell-sidesheet__body { padding: 1.5rem; flex: 1; overflow-y: auto; }
+.shell-sidesheet__foot {
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid var(--shell-border);
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* ---- Toggle switch ---- */
+.shell-toggle {
+  width: 42px; height: 24px;
+  border-radius: 999px;
+  background: #ABABAB;
+  border: none;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+.shell-toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.15s;
+}
+.shell-toggle.is-on { background: var(--shell-accent); }
+.shell-toggle.is-on::after { transform: translateX(18px); }

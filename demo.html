@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Marketing Content Generator — Component Demo / Preview
+     v3.0 — Companion to index.html. Open in a browser to see
+     every dashboard-specific component rendered in one page,
+     same pattern as the shell kit's preview.html.
+     Requires: shell.css + styles.css in the same folder.
+     ============================================================ -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="version" content="3.0">
+<title>Marketing Content Generator — Component Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shell.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .demo-note { font-size: 0.78rem; color: var(--shell-ink-subtle); margin: -0.5rem 0 1rem; }
+  .demo-block { margin-bottom: 3rem; }
+</style>
+</head>
+<body class="shell">
+<div class="shell-page">
+
+  <p class="shell-eyebrow">Style Reference · Demo</p>
+  <h1 class="shell-title">Marketing Content Generator — Components</h1>
+
+  <!-- Content type toolbar -->
+  <div class="demo-block">
+    <h2>Content type toolbar</h2>
+    <p class="demo-note">shell-toolbar with pills; used above the Content Repository card. Click to switch active state.</p>
+    <div class="shell-toolbar">
+      <div class="shell-toolbar__group">
+        <span class="shell-toolbar__label">Type</span>
+        <button type="button" class="shell-toolbar__pill is-active" onclick="demoPill(this)">📝 Blog<span class="type-count">48</span></button>
+        <button type="button" class="shell-toolbar__pill" onclick="demoPill(this)">✉️ Email<span class="type-count">32</span></button>
+        <button type="button" class="shell-toolbar__pill" onclick="demoPill(this)">📱 Social<span class="type-count">156</span></button>
+        <button type="button" class="shell-toolbar__pill" onclick="demoPill(this)">📄 Article<span class="type-count">24</span></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search card -->
+  <div class="demo-block">
+    <h2>Search card</h2>
+    <div class="shell-card">
+      <div class="search-bar" style="margin-bottom: 0;">
+        <input type="search" class="shell-input" placeholder="Search content...">
+        <button class="shell-btn-primary">Analyze ↗</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="demo-block">
+    <h2>Quick action buttons</h2>
+    <div class="quick-actions">
+      <button class="action-button">
+        <span class="action-button-icon">✏️</span>
+        <span class="action-button-title">Generate Content</span>
+        <span class="action-button-desc">Create with patterns</span>
+      </button>
+      <button class="action-button">
+        <span class="action-button-icon">📊</span>
+        <span class="action-button-title">Find Patterns</span>
+        <span class="action-button-desc">Analyze top content</span>
+      </button>
+      <button class="action-button">
+        <span class="action-button-icon">⬆️</span>
+        <span class="action-button-title">Ingest Content</span>
+        <span class="action-button-desc">Update repository</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Query items -->
+  <div class="demo-block">
+    <h2>Query example rows</h2>
+    <div class="shell-card">
+      <div class="queries-list">
+        <div class="query-item"><span class="query-icon">📧</span><span>What are the best practices in our email marketing content for subject lines?</span></div>
+        <div class="query-item"><span class="query-icon">💼</span><span>Generate a LinkedIn post that matches our brand voice and recent announcements</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step indicator + type options + fields (Generate modal internals) -->
+  <div class="demo-block">
+    <h2>Generate flow — step indicator, type options, fields</h2>
+    <div class="shell-card">
+      <div class="shell-steps">
+        <button type="button" class="shell-steps__item is-done"><span class="shell-steps__num">1</span> Brief</button>
+        <button type="button" class="shell-steps__item is-active"><span class="shell-steps__num">2</span> Generating</button>
+        <button type="button" class="shell-steps__item"><span class="shell-steps__num">3</span> Result</button>
+      </div>
+      <div class="modal-step-label">Content type</div>
+      <div class="type-select-grid">
+        <button type="button" class="type-option selected">📝 Blog</button>
+        <button type="button" class="type-option">✉️ Email</button>
+        <button type="button" class="type-option">📱 Social<span class="type-sub">156 items</span></button>
+        <button type="button" class="type-option">📄 Article</button>
+      </div>
+      <div class="field-group" style="margin-bottom: 1rem;">
+        <label class="field-label">Brief</label>
+        <textarea class="shell-textarea" rows="2" placeholder="e.g. Announce extended telehealth hours to existing patients..."></textarea>
+        <div class="example-chips-label">Try an example:</div>
+        <div class="example-chips">
+          <button type="button" class="example-chip">Announce extended telehealth hours to existing patients, emphasizing evening and weekend availability</button>
+          <button type="button" class="example-chip">Flu season reminder encouraging patients to book vaccinations online</button>
+        </div>
+      </div>
+      <div class="options-row">
+        <div>
+          <label class="field-label">Tone</label>
+          <select class="field-select"><option>Brand default</option></select>
+        </div>
+        <div>
+          <label class="field-label">Length</label>
+          <select class="field-select"><option>Standard</option></select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="demo-block">
+    <h2>Loading sequence</h2>
+    <div class="shell-card">
+      <div class="gen-loading" style="padding: 1rem;">
+        <div class="spinner"></div>
+        <div class="gen-loading-step done">Embedding your brief…</div>
+        <div class="gen-loading-step active">Retrieving relevant chunks from repository…</div>
+        <div class="gen-loading-step">Generating with brand-voice context…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Result -->
+  <div class="demo-block">
+    <h2>Generation result</h2>
+    <div class="shell-card">
+      <div class="modal-step-label">EMAIL · Brand default · Existing patients · 3 chunks retrieved</div>
+      <div class="result-output">SUBJECT: Telehealth now open evenings &amp; weekends
+PREVIEW: Book a video visit as late as 9pm
+
+Hi {{first_name}},
+
+Good news — telehealth visits are now available weekday evenings until 9pm and Saturdays 8am–2pm.</div>
+      <div class="result-actions">
+        <button class="shell-btn-outline btn-compact">📋 Copy</button>
+        <button class="shell-btn-outline btn-compact">↻ Regenerate</button>
+        <button class="shell-btn-outline btn-compact">✎ Edit brief</button>
+      </div>
+      <button class="sources-toggle">▾ View retrieved source chunks (2)</button>
+      <div class="source-chunk">
+        <div class="source-chunk-title">Telehealth Expansion Announcement (internal brief)</div>
+        <div>§2 Hours &amp; eligible visit types</div>
+        <div class="source-chunk-score">relevance 0.94</div>
+      </div>
+      <div class="source-chunk">
+        <div class="source-chunk-title">Patient Email Playbook</div>
+        <div>§3 Subject line &amp; CTA patterns</div>
+        <div class="source-chunk-score">relevance 0.88</div>
+      </div>
+      <div class="rating-row">
+        <span>Was this output useful?</span>
+        <button class="rate-btn selected-up">👍</button>
+        <button class="rate-btn">👎</button>
+        <span style="color: var(--shell-accent);">Feedback logged ✓</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pattern card -->
+  <div class="demo-block">
+    <h2>Pattern card with bar comparison</h2>
+    <div class="shell-card">
+      <div class="pattern-card" style="margin-bottom: 0;">
+        <div class="pattern-title">1. Concrete benefit in first 40 characters</div>
+        <div class="pattern-desc">Subject lines stating the specific benefit early outperform generic announcements.</div>
+        <div class="bar-compare">
+          <div class="bar-row">
+            <div class="bar-label">With pattern</div>
+            <div class="bar-track"><div class="bar-fill pattern" style="width: 100%;">52%</div></div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Repository baseline</div>
+            <div class="bar-track"><div class="bar-fill baseline" style="width: 63%;">33%</div></div>
+          </div>
+          <div class="bar-metric">Open rate</div>
+        </div>
+        <div class="pattern-excerpt">
+          "Telehealth now open evenings &amp; weekends" — the benefit lands before the fold on mobile.
+          <div class="pattern-excerpt-source">— Patient Email Playbook</div>
+        </div>
+        <button class="shell-btn-primary btn-compact">✨ Apply to new content</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ingest components -->
+  <div class="demo-block">
+    <h2>Ingest flow — sources, progress, doc list, summary</h2>
+    <div class="shell-card" style="margin-bottom: 1rem;">
+      <div class="modal-step-label">Choose a content source</div>
+      <div class="source-grid">
+        <div class="source-option">
+          <span class="source-option-icon">📁</span>
+          <span class="source-option-name">Google Drive</span>
+          <div class="source-option-desc">Sync marketing folder</div>
+        </div>
+        <div class="source-option">
+          <span class="source-option-icon">📤</span>
+          <span class="source-option-name">Upload files</span>
+          <div class="source-option-desc">PDF, DOCX, MD</div>
+        </div>
+        <div class="source-option">
+          <span class="source-option-icon">🔗</span>
+          <span class="source-option-name">From URL</span>
+          <div class="source-option-desc">Blog or page scrape</div>
+        </div>
+      </div>
+    </div>
+    <div class="shell-card" style="margin-bottom: 1rem;">
+      <div class="modal-step-label">Ingesting from Google Drive</div>
+      <div class="progress-track"><div class="progress-fill" style="width: 64%;"></div></div>
+      <div class="progress-status">
+        <span>Extracting → chunking → embedding: Article: Managing Type 2 Diabetes Between Visits</span>
+        <span>64%</span>
+      </div>
+      <div class="doc-list">
+        <div class="doc-row"><span class="doc-status">✓</span><span class="doc-name">Blog: Patient Portal No-Show Results (draft 3)</span><span class="doc-chunks">16 chunks</span></div>
+        <div class="doc-row failed"><span class="doc-status">✕</span><span class="doc-name">Report: 2026 Community Health Outcomes.pdf</span><span class="doc-chunks">Password-protected PDF</span></div>
+        <div class="doc-row processing"><span class="doc-status">⏳</span><span class="doc-name">Article: Managing Type 2 Diabetes Between Visits</span><span class="doc-chunks"></span></div>
+        <div class="doc-row pending"><span class="doc-status">○</span><span class="doc-name">Article: Understanding Your EOB v3</span><span class="doc-chunks"></span></div>
+      </div>
+    </div>
+    <div class="shell-card">
+      <div class="modal-step-label">Ingestion complete</div>
+      <div class="summary-grid">
+        <div class="summary-cell"><div class="summary-num good">6</div><div class="summary-cell-label">Docs processed</div></div>
+        <div class="summary-cell"><div class="summary-num">+60</div><div class="summary-cell-label">Chunks added</div></div>
+        <div class="summary-cell"><div class="summary-num bad">1</div><div class="summary-cell-label">Failed</div></div>
+      </div>
+      <div class="stale-panel" style="margin-bottom: 0;">
+        <div class="stale-panel-title">⚠️ Stale content detected</div>
+        <div class="stale-item">
+          <span>Member Billing FAQ <span style="color:var(--shell-ink-faint)">· last updated Apr 2, 2026</span></span>
+          <button class="shell-btn-outline btn-compact">Re-ingest</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status bar + notifications -->
+  <div class="demo-block">
+    <h2>Status bar</h2>
+    <div class="status-bar">
+      <span class="status-dot"></span>
+      <span>Last ingestion: 2 hours ago • 2,847 chunks indexed • System healthy</span>
+    </div>
+    <p class="demo-note" style="margin-top: 0.75rem;">Notifications: <button class="shell-btn-outline btn-compact" onclick="demoNotify('success')">success</button> <button class="shell-btn-outline btn-compact" onclick="demoNotify('info')">info</button> <button class="shell-btn-outline btn-compact" onclick="demoNotify('error')">error</button></p>
+  </div>
+
+</div>
+
+<script>
+function demoPill(el) {
+  el.parentElement.querySelectorAll('.shell-toolbar__pill').forEach(p => p.classList.remove('is-active'));
+  el.classList.add('is-active');
+}
+function demoNotify(type) {
+  const messages = { success: 'Copied to clipboard!', info: 'Processing your request…', error: 'Connection error' };
+  const n = document.createElement('div');
+  n.className = 'notification ' + type;
+  n.textContent = messages[type];
+  document.body.appendChild(n);
+  setTimeout(() => { n.style.animation = 'slideOut 0.3s ease-out'; setTimeout(() => n.remove(), 300); }, 2500);
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<!-- ============================================================
+     Marketing Content Generator — Prototype
+     v3.0 — Restyled on the UI Shell Style Kit (shell.css)
+     Files: index.html + shell.css + styles.css + script.js
+     ============================================================ -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="version" content="3.0">
+    <title>Marketing Content Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="shell.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="shell">
+    <div class="shell-page">
+        <header>
+            <p class="shell-eyebrow">Marketing Team · Prototype</p>
+            <h1 class="shell-title">Marketing Content Generator</h1>
+        </header>
+
+        <!-- Metrics Section (hidden for now — remove style attribute to restore) -->
+        <section class="section" id="metrics-section" style="display: none;">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Content Chunks</div>
+                    <div class="metric-value" id="content-chunks">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Queries/Day</div>
+                    <div class="metric-value">147</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Avg Response</div>
+                    <div class="metric-value">1.2s</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Accuracy</div>
+                    <div class="metric-value">88%</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Repository Section -->
+        <section class="section">
+            <h2>Content Repository</h2>
+            <div class="shell-toolbar">
+                <div class="shell-toolbar__group">
+                    <span class="shell-toolbar__label">Type</span>
+                    <button type="button" class="shell-toolbar__pill is-active" onclick="toggleBadge(this)">📝 Blog<span class="type-count">48</span></button>
+                    <button type="button" class="shell-toolbar__pill" onclick="toggleBadge(this)">✉️ Email<span class="type-count">32</span></button>
+                    <button type="button" class="shell-toolbar__pill" onclick="toggleBadge(this)">📱 Social<span class="type-count">156</span></button>
+                    <button type="button" class="shell-toolbar__pill" onclick="toggleBadge(this)">📄 Article<span class="type-count">24</span></button>
+                </div>
+            </div>
+            <div class="shell-card">
+                <div class="search-bar" style="margin-bottom: 0;">
+                    <input type="search" class="shell-input" id="search-input" placeholder="Search content...">
+                    <button class="shell-btn-primary" onclick="analyzeContent()">Analyze ↗</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions Section -->
+        <section class="section">
+            <h2>Quick Actions</h2>
+            <div class="quick-actions">
+                <button class="action-button" onclick="performAction('generate')">
+                    <span class="action-button-icon">✏️</span>
+                    <span class="action-button-title">Generate Content</span>
+                    <span class="action-button-desc">Create with patterns</span>
+                </button>
+                <button class="action-button" onclick="performAction('patterns')">
+                    <span class="action-button-icon">📊</span>
+                    <span class="action-button-title">Find Patterns</span>
+                    <span class="action-button-desc">Analyze top content</span>
+                </button>
+                <button class="action-button" onclick="performAction('slack')">
+                    <span class="action-button-icon">💬</span>
+                    <span class="action-button-title">Chat AI Setup</span>
+                    <span class="action-button-desc">Slack integration</span>
+                </button>
+                <button class="action-button" id="ingest-btn" onclick="performAction('ingest')">
+                    <span class="action-button-icon">⬆️</span>
+                    <span class="action-button-title">Ingest Content</span>
+                    <span class="action-button-desc">Update repository</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Query Examples Section -->
+        <section class="section">
+            <h2>Query Examples</h2>
+            <div class="shell-card">
+                <div class="queries-list">
+                    <div class="query-item" onclick="executeQuery('What are the best practices in our email marketing content for subject lines?')">
+                        <span class="query-icon">📧</span>
+                        <span>What are the best practices in our email marketing content for subject lines?</span>
+                    </div>
+                    <div class="query-item" onclick="executeQuery('Generate a LinkedIn post that matches our brand voice and recent announcements')">
+                        <span class="query-icon">💼</span>
+                        <span>Generate a LinkedIn post that matches our brand voice and recent announcements</span>
+                    </div>
+                    <div class="query-item" onclick="executeQuery('Show me the common structure of our highest-converting landing pages')">
+                        <span class="query-icon">🎯</span>
+                        <span>Show me the common structure of our highest-converting landing pages</span>
+                    </div>
+                    <div class="query-item" onclick="executeQuery('Create a case study outline based on our successful customer stories')">
+                        <span class="query-icon">📖</span>
+                        <span>Create a case study outline based on our successful customer stories</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Bar -->
+        <section class="section">
+            <div class="status-bar">
+                <span class="status-dot" id="status-dot"></span>
+                <span>Last ingestion: 2 hours ago • 2,847 chunks indexed • System healthy</span>
+            </div>
+        </section>
+    </div>
+
+    <!-- Generate Content Modal (Scenario A) -->
+    <div class="modal-backdrop" id="gen-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>✏️ Generate Content</h2>
+                <button class="modal-close" onclick="closeGenModal()" aria-label="Close">✕</button>
+            </div>
+
+            <div class="shell-steps">
+                <button type="button" class="shell-steps__item is-active" id="gen-step-ind-1" onclick="genStepClick(1)"><span class="shell-steps__num">1</span> Brief</button>
+                <button type="button" class="shell-steps__item" id="gen-step-ind-2"><span class="shell-steps__num">2</span> Generating</button>
+                <button type="button" class="shell-steps__item" id="gen-step-ind-3"><span class="shell-steps__num">3</span> Result</button>
+            </div>
+
+            <!-- Step 1: Setup form -->
+            <div id="gen-step-form">
+                <div class="modal-step-label">Content type</div>
+                <div class="type-select-grid" id="gen-type-grid">
+                    <button type="button" class="type-option selected" data-type="blog" onclick="selectGenType(this)">📝 Blog</button>
+                    <button type="button" class="type-option" data-type="email" onclick="selectGenType(this)">✉️ Email</button>
+                    <button type="button" class="type-option" data-type="social" onclick="selectGenType(this)">📱 Social</button>
+                    <button type="button" class="type-option" data-type="article" onclick="selectGenType(this)">📄 Article</button>
+                </div>
+
+                <div class="field-group">
+                    <div class="modal-step-label">Brief</div>
+                    <label class="field-label" for="gen-brief">What should this content be about?</label>
+                    <textarea class="shell-textarea" id="gen-brief" rows="3" placeholder="e.g. Announce extended telehealth hours to existing patients, emphasizing weekend availability..."></textarea>
+                    <div class="example-chips-label">Try an example:</div>
+                    <div class="example-chips" id="gen-examples"></div>
+                </div>
+
+                <div class="field-group">
+                    <div class="modal-step-label">Options</div>
+                    <div class="options-row">
+                        <div>
+                            <label class="field-label" for="gen-tone">Tone</label>
+                            <select class="field-select" id="gen-tone">
+                                <option>Brand default</option>
+                                <option>Direct &amp; evidence-first</option>
+                                <option>Warm &amp; conversational</option>
+                                <option>Authoritative</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="field-label" for="gen-length">Length</label>
+                            <select class="field-select" id="gen-length">
+                                <option>Standard</option>
+                                <option>Short</option>
+                                <option>Long-form</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="field-label" for="gen-audience">Audience</label>
+                            <select class="field-select" id="gen-audience">
+                                <option>Existing customers</option>
+                                <option>Prospects</option>
+                                <option>Decision makers</option>
+                                <option>Practitioners</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="shell-btn-outline" onclick="closeGenModal()">Cancel</button>
+                    <button class="shell-btn-primary" onclick="startGeneration()">Generate ✨</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Loading -->
+            <div id="gen-step-loading" style="display: none;">
+                <div class="gen-loading">
+                    <div class="spinner"></div>
+                    <div class="gen-loading-step" id="load-step-1">Embedding your brief…</div>
+                    <div class="gen-loading-step" id="load-step-2">Retrieving relevant chunks from repository…</div>
+                    <div class="gen-loading-step" id="load-step-3">Generating with brand-voice context…</div>
+                </div>
+            </div>
+
+            <!-- Step 3: Result -->
+            <div id="gen-step-result" style="display: none;">
+                <div class="modal-step-label" id="result-meta"></div>
+                <div class="result-output" id="result-text"></div>
+
+                <div class="result-actions">
+                    <button class="shell-btn-outline btn-compact" onclick="copyResult()">📋 Copy</button>
+                    <button class="shell-btn-outline btn-compact" onclick="regenerate()">↻ Regenerate</button>
+                    <button class="shell-btn-outline btn-compact" onclick="backToForm()">✎ Edit brief</button>
+                </div>
+
+                <button class="sources-toggle" id="sources-toggle" onclick="toggleSources()">▸ View retrieved source chunks (3)</button>
+                <div id="sources-list" style="display: none;"></div>
+
+                <div class="rating-row">
+                    <span>Was this output useful?</span>
+                    <button class="rate-btn" id="rate-up" onclick="rateResult('up')">👍</button>
+                    <button class="rate-btn" id="rate-down" onclick="rateResult('down')">👎</button>
+                    <span id="rate-thanks" style="display: none; color: var(--shell-accent);">Feedback logged ✓</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Find Patterns Modal (Scenario B) -->
+    <div class="modal-backdrop" id="pat-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>📊 Find Patterns</h2>
+                <button class="modal-close" onclick="closePatModal()" aria-label="Close">✕</button>
+            </div>
+
+            <!-- Step 1: pick type -->
+            <div id="pat-step-type">
+                <div class="modal-step-label">Choose a content type to analyze</div>
+                <div class="type-select-grid">
+                    <button type="button" class="type-option" onclick="analyzePatterns('blog')">📝 Blog<span class="type-sub">48 items</span></button>
+                    <button type="button" class="type-option" onclick="analyzePatterns('email')">✉️ Email<span class="type-sub">32 items</span></button>
+                    <button type="button" class="type-option" onclick="analyzePatterns('social')">📱 Social<span class="type-sub">156 items</span></button>
+                    <button type="button" class="type-option" onclick="analyzePatterns('article')">📄 Article<span class="type-sub">24 items</span></button>
+                </div>
+            </div>
+
+            <!-- Step 2: loading -->
+            <div id="pat-step-loading" style="display: none;">
+                <div class="gen-loading">
+                    <div class="spinner"></div>
+                    <div class="gen-loading-step active" id="pat-load-msg">Analyzing content performance…</div>
+                </div>
+            </div>
+
+            <!-- Step 3: results -->
+            <div id="pat-step-results" style="display: none;">
+                <div class="modal-step-label" id="pat-results-meta"></div>
+                <div id="pat-results-list"></div>
+                <div class="modal-footer">
+                    <button class="shell-btn-text" onclick="showPatStep('type')">← Analyze another type</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ingest Content Modal (Scenario C) -->
+    <div class="modal-backdrop" id="ing-modal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>⬆️ Ingest Content</h2>
+                <button class="modal-close" onclick="closeIngModal()" aria-label="Close">✕</button>
+            </div>
+
+            <!-- Step 1: pick source -->
+            <div id="ing-step-source">
+                <div class="modal-step-label">Choose a content source</div>
+                <div class="source-grid">
+                    <div class="source-option" onclick="startIngestion('drive')">
+                        <span class="source-option-icon">📁</span>
+                        <span class="source-option-name">Google Drive</span>
+                        <div class="source-option-desc">Sync marketing folder</div>
+                    </div>
+                    <div class="source-option" onclick="startIngestion('upload')">
+                        <span class="source-option-icon">📤</span>
+                        <span class="source-option-name">Upload files</span>
+                        <div class="source-option-desc">PDF, DOCX, MD</div>
+                    </div>
+                    <div class="source-option" onclick="startIngestion('url')">
+                        <span class="source-option-icon">🔗</span>
+                        <span class="source-option-name">From URL</span>
+                        <div class="source-option-desc">Blog or page scrape</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: progress -->
+            <div id="ing-step-progress" style="display: none;">
+                <div class="modal-step-label" id="ing-progress-label">Ingesting from Google Drive</div>
+                <div class="progress-track"><div class="progress-fill" id="ing-progress-fill"></div></div>
+                <div class="progress-status">
+                    <span id="ing-progress-text">Starting…</span>
+                    <span id="ing-progress-pct">0%</span>
+                </div>
+                <div class="doc-list" id="ing-doc-list"></div>
+            </div>
+
+            <!-- Step 3: summary -->
+            <div id="ing-step-summary" style="display: none;">
+                <div class="modal-step-label">Ingestion complete</div>
+                <div class="summary-grid">
+                    <div class="summary-cell">
+                        <div class="summary-num good" id="sum-docs">0</div>
+                        <div class="summary-cell-label">Docs processed</div>
+                    </div>
+                    <div class="summary-cell">
+                        <div class="summary-num" id="sum-chunks">0</div>
+                        <div class="summary-cell-label">Chunks added</div>
+                    </div>
+                    <div class="summary-cell">
+                        <div class="summary-num bad" id="sum-failed">0</div>
+                        <div class="summary-cell-label">Failed</div>
+                    </div>
+                </div>
+
+                <div class="stale-panel" id="stale-panel">
+                    <div class="stale-panel-title">⚠️ Stale content detected</div>
+                    <div id="stale-list"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="shell-btn-text" onclick="showIngStep('source')">← Ingest another source</button>
+                    <button class="shell-btn-primary" onclick="closeIngModal()">Done</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
